@@ -1,20 +1,21 @@
 # 🚀 AutoInsight AI
 
-> **Conversational Analytics + AutoML Agent + RAG Intelligence**  
-> A full-stack AI agent platform for natural language data analysis and automated machine learning — built to demonstrate real-world engineering and data science excellence.
+> **Conversational Analytics + RAG Intelligence (AutoML Coming Soon)**  
+> A full-stack AI agent platform for natural language data analysis — built to demonstrate real-world engineering and data science excellence.
 
 ---
 
 ## 📌 Project Overview
 
-**AutoInsight AI** enables both non-technical and technical users to interact with real-time databases and build machine learning pipelines using only natural language.  
-It combines:
+**AutoInsight AI** enables both non-technical and technical users to interact with real-time databases and generate insights using natural language.  
+It currently supports:
 
-- 🧠 **AI Agents** (NL to SQL, AutoML, Charting)
+- 🧠 **Conversational Agents** (Text-to-SQL + Table-to-Chart)
 - 📊 **Auto Dashboards**
-- 🧪 **End-to-End ML Pipelines**
 - 📚 **RAG-powered Explanations**
-- 🧑‍💼 Dual UI for both business users and ML engineers
+- 🧑‍💼 Dual UI for both business users and technical teams
+
+> **Coming Soon**: End-to-End **AutoML Agent** for CSV/SQL → Model → Export Pipelines
 
 ---
 
@@ -22,30 +23,31 @@ It combines:
 
 | Capability | Description |
 |------------|-------------|
-| 🗣️ Conversational Data Query | Ask natural language questions, get SQL results + charts |
-| 📊 Chart Generator | Smart visualizations based on query intent |
-| 🧠 AutoML Agent | CSV/SQL → Clean → EDA → Model → Evaluate |
-| 🧪 Model Export | Download trained notebook + API endpoint |
-| 📚 RAG Assistant | "Why this model?" — RAG explains ML decisions |
+| 🗣️ Conversational Data Query | Ask natural language questions, get SQL results |
+| 📊 Table-to-Chart Generator | Converts SQL/table output into intelligent charts |
+| 📚 RAG Assistant | “Why this metric?” — RAG explains schema, queries, logic |
 | 🔒 Dual UI | Business-friendly chat + technical dashboard |
-| ⚙️ Dockerized ML Runtime | Safe execution of pipelines in containerized env |
+| ⚙️ Dockerized Runtime | Secure execution of code in containers |
 | 🧾 Vector Search Index | Indexed documentation, schema, logs |
+
+> ⚠️ **Note**: AutoML Agent is currently **under development** and will support full ML pipelines soon.
 
 ---
 
 ## 🧠 System Architecture
 
 ```
-
 User (Chat UI)
 ↓
 Agent Planner (LLM + Tools)
 ├── SQL Tool → DB → Result
 ├── Chart Tool → Visual
-├── AutoML Tool → Docker → Model
 └── RAG Tool → Vector DB → Answer
 
-````
+# Coming Soon:
+
+└── AutoML Tool → Docker → Model
+```
 
 ---
 
@@ -55,47 +57,41 @@ Agent Planner (LLM + Tools)
 |---------------|-------|
 | LLM Agents    | LangChain, OpenAI, ToolRouter |
 | RAG Layer     | FAISS / Qdrant + OpenAI Embeddings |
-| ML Stack      | Pandas, Scikit-learn, PyCaret, XGBoost |
-| Visualization | Matplotlib, Seaborn, Plotly |
+| Data & Viz    | Pandas, Plotly, Matplotlib, Seaborn |
 | Backend       | FastAPI, LangServe |
 | Frontend      | Streamlit (Biz UI), React/Streamlit (Tech UI) |
 | Runtime       | Docker, Jupyter, Papermill |
 | Database      | PostgreSQL / SQLite |
-| Docs Search   | Markdown, CSV, PDF ingested to vector DB |
-
+| Docs Search   | Markdown, CSV, PDF → Vector DB |
 
 ---
 
-## 🧪 Example Queries
+## 💬 Example Queries
 
 * “Show sales by category in last quarter”
-* “Upload this CSV and predict customer churn”
-* “Why was XGBoost selected instead of Logistic Regression?”
-* “Give feature importance chart for this model”
-
+* “Convert this table into a pie chart”
+* “Explain what this metric means”
+* “What columns are used for revenue analysis?”
 
 ---
 
 ## 📄 Deliverables
 
 * ✅ Live App (Streamlit)
-* ✅ AutoML Agent with Docker
-* ✅ Notebook + API output
+* ✅ Conversational Agent (Text-to-SQL + Visualization)
 * ✅ Chat UI with RAG
 * ✅ Project Report (PDF)
-* ✅ GitHub Code + Instructions
+* ✅ GitHub Code + Setup Instructions
+* ⏳ **Coming Soon**: AutoML Agent with notebook/API export
 
 ---
 
-
 ## 🧑‍💼 About
 
-**\[Akshay Kumar BM]** 
-📧 [akshaykumarbedre.bm@gmail.com](mailto:akshaykumarbedre.bm@gmail.com)
+**[Akshay Kumar BM]**  
+📧 [akshaykumarbedre.bm@gmail.com](mailto:akshaykumarbedre.bm@gmail.com)  
 🔗 [LinkedIn](https://linkedin.com/in/akshaykumarbm)
 
 ---
 
 ## ⭐ Star this repo if you find it useful!
-
-
