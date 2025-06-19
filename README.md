@@ -5,6 +5,14 @@
 
 ---
 
+## 🎬 Demo Video
+
+[![Watch Demo](https://img.youtube.com/vi/none/0.jpg)](https://dl.dropboxusercontent.com/scl/fi/laz4y3gjdy6i68y23fvtg/opera_plmNnT5jFw.mp4?rlkey=g7h494w72wvadw3rjwmuuufd1&dl=0)
+
+> [Click here to watch the demo video](https://dl.dropboxusercontent.com/scl/fi/laz4y3gjdy6i68y23fvtg/opera_plmNnT5jFw.mp4?rlkey=g7h494w72wvadw3rjwmuuufd1&dl=0)
+
+---
+
 ## 📌 Project Overview
 
 **AutoInsight AI** enables both non-technical and technical users to interact with real-time databases and generate insights using natural language.  
