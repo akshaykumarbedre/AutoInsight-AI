@@ -5,9 +5,12 @@
 
 ---
 
-## 🎬 Demo Video
+## 🎬 Demo Image
 ![image](https://github.com/user-attachments/assets/5397151e-bc19-4e1e-a7e0-8813fc76805b)
 
+![image](https://github.com/user-attachments/assets/aa893388-8d13-4ae9-94a2-eeb8d26cd634)
+
+## 🎬 Demo video
 
 > [Click here to watch the demo video](https://dl.dropboxusercontent.com/scl/fi/laz4y3gjdy6i68y23fvtg/opera_plmNnT5jFw.mp4?rlkey=g7h494w72wvadw3rjwmuuufd1&dl=0)
 
