@@ -1,6 +1,6 @@
 # 🚀 AutoInsight AI
 
-> **Conversationa| Capability | Description |
+**Conversationa| Capability | Description |
 |------------|-------------|
 | 🗣️ Conversational Data Query | Ask natural language questions, get SQL results |
 | 📊 Table-to-Chart Generator | Converts SQL/table output into intelligent charts |
