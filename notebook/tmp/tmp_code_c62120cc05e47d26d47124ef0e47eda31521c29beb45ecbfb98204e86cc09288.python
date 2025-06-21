@@ -1,0 +1,48 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score
+import matplotlib.pyplot as plt
+
+# Load the dataset
+data = pd.read_csv('customers-1000.csv')
+
+# Display the first few rows of the dataframe
+print(data.head())
+
+# Data Preprocessing
+# Handle missing values if any
+data.fillna(data.mean(), inplace=True)
+
+# Suppose the target variable is in a column named 'target'
+# Replace 'target' with the actual name of your target variable
+features = data.drop('target', axis=1)  # Features
+target = data['target']  # Target variable
+
+# Split the data into a training set and a testing set
+X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+
+# Create a Random Forest Classifier
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+print(classification_report(y_test, y_pred))
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy * 100:.2f}%')
+
+# Feature importance visualization
+importances = model.feature_importances_
+indices = np.argsort(importances)[::-1]
+
+# Plotting feature importances
+plt.figure()
+plt.title("Feature importances")
+plt.bar(range(features.shape[1]), importances[indices], align="center")
+plt.xticks(range(features.shape[1]), indices)
+plt.xlim([-1, features.shape[1]])
+plt.savefig("output.png")
+plt.show()

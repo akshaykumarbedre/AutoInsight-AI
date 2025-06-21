@@ -18,6 +18,9 @@ def get_llm(api_key: str = None):
         api_key=api_key,
     )
 
-def get_openai_client(model: str = "gpt-4o-mini"):
+def get_openai_client(model: str = "gpt-4o-mini", api_key: str = None):
+    if not api_key:
+        api_key = load_environment()
+
     """Get OpenAI chat completion client"""
-    return OpenAIChatCompletionClient(model=model)
+    return OpenAIChatCompletionClient(model=model, api_key=api_key)

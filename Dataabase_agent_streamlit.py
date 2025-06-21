@@ -144,7 +144,7 @@ if 'team' not in st.session_state:
     # Initialize agents
     st.session_state.team = TeamManager()
     st.session_state.database = DatabaseManager()
-    st.session_state.database.connect(get_llm())
+    st.session_state.database.connect()
     
     st.session_state.database_team = st.session_state.team.create_db_team(
         create_database_agent(
@@ -481,8 +481,8 @@ with col1:
     # Sample queries
     sample_queries = [
         "Show me the top 10 customers by total order amount with their contact details",
-        "What are the most popular products by quantity sold in the last 6 months?",
-        "Analyze monthly order trends for this year and compare with last year",
+        "What are the most popular products by quantity sold?",
+        "Top order items by price in e-commmerse",
         "Show customer demographics breakdown by city and age groups",
         "Compare supplier performance scores and their delivery statistics"
     ]
@@ -495,7 +495,7 @@ with col1:
             st.session_state.selected_query = sample_queries[0]
             st.rerun()
         
-        if st.button("📊 Analyze monthly order trends for this year and compare with last year", 
+        if st.button("📊 Top order items by price in e-commmers ", 
                      use_container_width=True, help="Click to use this query"):
             st.session_state.selected_query = sample_queries[2]
             st.rerun()
@@ -506,7 +506,7 @@ with col1:
             st.rerun()
     
     with col1_2:
-        if st.button("⭐ What are the most popular products by quantity sold in the last 6 months?", 
+        if st.button("⭐ What are the most popular products by quantity sold?", 
                      use_container_width=True, help="Click to use this query"):
             st.session_state.selected_query = sample_queries[1]
             st.rerun()
@@ -645,7 +645,7 @@ with col2:
                 "emoji": "👤",
                 "timestamp": time.time()
             }
-            st.session_state.viz_messages_history.append(feedback_msg)
+            # st.session_state.viz_messages_history.append(feedback_msg)
             
             # Display feedback immediately
             with viz_messages_container:

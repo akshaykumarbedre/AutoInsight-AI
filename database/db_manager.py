@@ -1,5 +1,5 @@
-from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
-from langchain_community.utilities.sql_database import SQLDatabase
+from tool.sql_tool_kit import get_sql_tools
+
 from autogen_ext.tools.langchain import LangChainToolAdapter
 
 class DatabaseManager:
@@ -7,16 +7,16 @@ class DatabaseManager:
     
     def __init__(self, db_uri: str = "sqlite:///ecommerce.db"):
         self.db_uri = db_uri
-        self.db = None
+       
         self.toolkit = None
         
-    def connect(self, llm):
+    def connect(self):
         """Connect to database and create toolkit"""
-        self.db = SQLDatabase.from_uri(self.db_uri)
-        self.toolkit = SQLDatabaseToolkit(db=self.db, llm=llm)
         
+        self.toolkit = get_sql_tools( self.db_uri)
+    
     def get_tools(self):
         """Get LangChain adapted tools from toolkit"""
         if not self.toolkit:
             raise ValueError("Database not connected. Call connect() first.")
-        return [LangChainToolAdapter(tool) for tool in self.toolkit.get_tools()]
+        return [LangChainToolAdapter(tool) for tool in self.toolkit]
