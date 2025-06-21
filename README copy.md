@@ -1,13 +1,6 @@
 # 🚀 AutoInsight AI
 
-> **Conversationa| Capability | Description |
-|------------|-------------|
-| 🗣️ Conversational Data Query | Ask natural language questions, get SQL results |
-| 📊 Table-to-Chart Generator | Converts SQL/table output into intelligent charts |
-| 📚 RAG Assistant | "Why this metric?" — RAG explains schema, queries, logic |
-| 🔒 Dual UI | Business-friendly chat + technical dashboard |
-| ⚙️ Dockerized Runtime | Secure execution of code in containers |
-| 🧾 Vector Search Index | Indexed documentation, schema, logs |ics + Two Specialized Agent Teams**  
+> **Conversational Analytics + RAG Intelligence (AutoML Coming Soon)**  
 > A full-stack AI agent platform for natural language data analysis — built to demonstrate real-world engineering and data science excellence.
 
 ---
@@ -19,27 +12,22 @@
 
 ## 🎬 Demo Videos
 
-> [Click here to watch the Database Agent video](https://drive.google.com/file/d/11pplCQI1jrP8usHWf_VWDhoDR_pjud38/view?usp=sharing)
+> [Click here to watch the main demo video](https://drive.google.com/file/d/11pplCQI1jrP8usHWf_VWDhoDR_pjud38/view?usp=sharing)
 
 > [Click here to watch the Data Analysis Agent demo](https://dl.dropboxusercontent.com/scl/fi/780sf6p8x7htrhclw1pdl/opera_1l7FBf5KlR.mp4?rlkey=vo3cgh3xcrznpfoqtmo4wheuc&dl=0)
 ---
 
 ## 📌 Project Overview
 
-**AutoInsight AI** features two specialized agent teams that enable both non-technical and technical users to interact with databases and analyze data using natural language.  
+**AutoInsight AI** enables both non-technical and technical users to interact with real-time databases and generate insights using natural language.  
 It currently supports:
 
-- 🧠 **Database Agent Team** (Text-to-SQL + Data Visualization)
-  - Human-in-the-loop verification
-  - Custom tools for database interaction
-  - Gradle integration
-- � **Data Analysis Agent Team**
-  - Code generation for any CSV/Excel file
-  - Docker container execution
-  - Matplotlib visualization generation
-  - No data size limitations
+- 🧠 **Conversational Agents** (Text-to-SQL + Table-to-Chart)
+- 📊 **Auto Dashboards**
+- 📚 **RAG-powered Explanations**
+- 🧑‍💼 Dual UI for both business users and technical teams
 
-> **Both agents work seamlessly together to provide end-to-end analytics solutions**
+> **Coming Soon**: End-to-End **AutoML Agent** for CSV/SQL → Model → Export Pipelines
 
 ---
 
@@ -80,8 +68,9 @@ Agent Planner (LLM + Tools)
 | Layer         | Stack |
 |---------------|-------|
 | LLM Agents    | LangChain, OpenAI, ToolRouter |
-| RAG Layer     | OpenAI Embeddings |
+| RAG Layer     | FAISS / Qdrant + OpenAI Embeddings |
 | Data & Viz    | Pandas, Plotly, Matplotlib, Seaborn |
+| Backend       | FastAPI, LangServe |
 | Frontend      | Streamlit (Biz UI), React/Streamlit (Tech UI) |
 | Runtime       | Docker, Jupyter, Papermill |
 | Database      | PostgreSQL / SQLite |
@@ -105,6 +94,7 @@ Agent Planner (LLM + Tools)
 * ✅ Chat UI with RAG
 * ✅ Project Report (PDF)
 * ✅ GitHub Code + Setup Instructions
+* ⏳ **Coming Soon**: AutoML Agent with notebook/API export
 
 ---
 
