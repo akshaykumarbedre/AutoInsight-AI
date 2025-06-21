@@ -1,16 +1,7 @@
 # 🚀 AutoInsight AI
 
-**Conversationa| Capability | Description |
-|------------|-------------|
-| 🗣️ Conversational Data Query | Ask natural language questions, get SQL results |
-| 📊 Table-to-Chart Generator | Converts SQL/table output into intelligent charts |
-| 📚 RAG Assistant | "Why this metric?" — RAG explains schema, queries, logic |
-| 🔒 Dual UI | Business-friendly chat + technical dashboard |
-| ⚙️ Dockerized Runtime | Secure execution of code in containers |
-| 🧾 Vector Search Index | Indexed documentation, schema, logs |ics + Two Specialized Agent Teams**  
-> A full-stack AI agent platform for natural language data analysis — built to demonstrate real-world engineering and data science excellence.
 
----
+
 
 ## 🎬 Demo Image
 ![image](https://github.com/user-attachments/assets/5397151e-bc19-4e1e-a7e0-8813fc76805b)
