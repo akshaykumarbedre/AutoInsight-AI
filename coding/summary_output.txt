@@ -1,14 +1,21 @@
-          start_time  ...  organization_name
-count   3.100000e+01  ...                  2
-unique           NaN  ...                  1
-top              NaN  ...           Personal
-freq             NaN  ...                  2
-mean    1.753229e+09  ...                NaN
-std     7.855593e+05  ...                NaN
-min     1.751933e+09  ...                NaN
-25%     1.752581e+09  ...                NaN
-50%     1.753229e+09  ...                NaN
-75%     1.753877e+09  ...                NaN
-max     1.754525e+09  ...                NaN
 
-[11 rows x 10 columns]
+Summary of the Data Analysis and Model Training:
+
+1. **Initial Data Overview**:
+   - The dataset `cost_2025-07-08_2025-08-07 (1).csv` contains 31 entries and 10 columns.
+   - Many columns had significant numbers of null values, particularly in fields related to monetary amounts and organization details.
+
+2. **Data Cleaning Process**:
+   - Missing values were addressed by filling:
+       - Numeric fields with mean values.
+       - Categorical fields with mode values.
+   - Rows containing null values in critical columns (`start_time` and `end_time`) were dropped.
+
+3. **Model Development**:
+   - After cleaning, a linear regression model was developed to predict the `amount_value` based on `start_time` and `end_time`.
+   - The model was successfully trained using available data.
+
+4. **Model Output**:
+   - The trained model was saved as `linear_model.pkl`.
+
+This summary encapsulates the steps taken during the data analysis process and the model training, providing a clear record of the methods employed and outcomes achieved.

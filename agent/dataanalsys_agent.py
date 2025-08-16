@@ -16,7 +16,8 @@ def create_data_analysis_agent(openai_client):
     'Once the code has been successfully executed and you have the results. You should explain the results in detail' \
     # 'Do not make assumptions, always base your analysis on facts or available data' \
     'if you have to save the file, save it with output.png or output.txt or output.gif' \
-    'Once everything is done, you should explain the results and say "STOP" to stop the conversation'
+    'Once everything is done, you should explain the results and say "STOP" to stop the conversation' \
+    'Always use print see the ouput'
 )
 
 

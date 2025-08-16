@@ -1,0 +1,22 @@
+
+Summary of the Dataset:
+
+1. Shape of the dataset: (31, 10)
+2. Columns in the dataset: ['start_time', 'end_time', 'start_time_iso', 'end_time_iso', 'amount_value', 'amount_currency', 'line_item', 'project_id', 'organization_id', 'organization_name']
+3. Information about the dataset:
+None
+4. Statistical Description of the dataset:
+          start_time  ...  organization_name
+count   3.100000e+01  ...                  2
+unique           NaN  ...                  1
+top              NaN  ...           Personal
+freq             NaN  ...                  2
+mean    1.753229e+09  ...                NaN
+std     7.855593e+05  ...                NaN
+min     1.751933e+09  ...                NaN
+25%     1.752581e+09  ...                NaN
+50%     1.753229e+09  ...                NaN
+75%     1.753877e+09  ...                NaN
+max     1.754525e+09  ...                NaN
+
+[11 rows x 10 columns]
