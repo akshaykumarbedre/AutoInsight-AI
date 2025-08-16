@@ -1,5 +1,4 @@
 
-from autogen_ext.code_executors.docker import DockerCommandLineCodeExecutor
 import venv
 from pathlib import Path
 

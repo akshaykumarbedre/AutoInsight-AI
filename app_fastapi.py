@@ -736,7 +736,7 @@ if __name__ == '__main__':
     uvicorn.run(
         "app_fastapi:app",
         host='0.0.0.0',
-        port=int(os.environ.get('PORT', 5002)),
+        port=int(os.environ.get('PORT', 8080)),
         reload=os.environ.get('DEBUG', 'False').lower() == 'true',
         workers=1,  # Use 1 worker for development, increase for production
 

@@ -6,3 +6,4 @@ tmp/*
 plots/*
 Analyzer GPT
 **/__pycache__/
+myvenv

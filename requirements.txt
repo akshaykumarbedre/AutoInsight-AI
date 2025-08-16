@@ -12,6 +12,7 @@ autogen-core==0.6.1
 autogen-ext==0.6.1
 blinker==1.9.0
 cachetools==5.5.2
+
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.1
@@ -98,5 +99,3 @@ wheel==0.45.1
 yarl==1.20.1
 zstandard==0.23.0
 IPython
-jinja2
-python-multipart
