@@ -1,5 +1,8 @@
 .env
 
-
+venv
+*.venv
 tmp/*
 plots/*
+Analyzer GPT
+**/__pycache__/

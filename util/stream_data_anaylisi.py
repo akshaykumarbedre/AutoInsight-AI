@@ -3,7 +3,7 @@ from autogen_agentchat.messages import TextMessage
 
 async def run_code_executor_agent(team , docker ,  file_name ,task="simple graph to show prime number" ):
     try:
-        await docker.start()
+        # await docker.start()
 
         task = task + f' and the file is {file_name}'
         async for message in team.run_stream(task = task):
@@ -19,9 +19,6 @@ async def run_code_executor_agent(team , docker ,  file_name ,task="simple graph
     except Exception as e:
         print(f"An error occurred: {e}")
     
-    finally:
-        await docker.stop()
-        print("Docker stopped.")
 
 async def run_code_executor_agent_streamlit(team, docker, file_name, task="simple graph to show prime number"):
     """

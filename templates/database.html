@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoInsight AI - Database Analytics</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/database.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-link {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #e9ecef;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+            background: white;
+        }
+
+        .nav-tab:hover {
+            background: #ecf0f1;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 75vh;
+        }
+
+        .query-panel {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .query-section {
+            margin-bottom: 25px;
+        }
+
+        .query-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .query-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .query-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #7f8c8d;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .results-container {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 15px;
+            border-bottom: 1px solid #f1f2f6;
+            margin-bottom: 0;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message.user {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 15px 15px 5px 15px;
+            margin: 10px;
+        }
+
+        .message.agent {
+            background: #f8f9fa;
+            border-radius: 15px 15px 15px 5px;
+            margin: 10px;
+        }
+
+        .message.tool-request {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+        }
+
+        .message.tool-result {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .message.system {
+            background: #e8f5e8;
+            color: #27ae60;
+            text-align: center;
+            border-radius: 20px;
+            margin: 10px;
+        }
+
+        .message.processing {
+            background: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            color: #495057;
+            font-style: italic;
+        }
+
+        .message.error {
+            background: #fdf2f2;
+            color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .message-header {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .message-content {
+            line-height: 1.5;
+        }
+
+        .message-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .message-content th, .message-content td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .message-content th {
+            background: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        .message-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .message-content tr:hover {
+            background: #e3f2fd;
+        }
+
+        .message-content code:not(.hljs) {
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+
+        .message-content pre {
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .message-content .hljs {
+            background: #2c3e50 !important;
+            padding: 20px !important;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .tool-info {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tool-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .tool-args {
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+
+        .emoji-indicator {
+            font-size: 1.2rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #95a5a6;
+            margin-left: auto;
+            font-style: italic;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .data-extract-btn {
+            background: linear-gradient(45deg, #27ae60, #229954);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .data-extract-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-bar {
+            background: #ecf0f1;
+            padding: 10px 30px;
+            border-top: 1px solid #bdc3c7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #27ae60;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #e74c3c;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .query-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav-links">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Data Analysis
+                </a>
+                <a href="/visualization" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Visualization
+                </a>
+            </div>
+            <h1><i class="fas fa-database"></i> AutoInsight AI Database Analytics</h1>
+            <p>Query your database with natural language and explore your data</p>
+        </div>
+        
+ 
+        
+        <div class="main-content">
+            <div class="query-panel">
+                <div class="panel-title">
+                    <i class="fas fa-terminal"></i>
+                    SQL Query Interface
+                </div>
+                
+                <div class="query-section">
+                    <textarea 
+                        class="query-input" 
+                        id="query-input" 
+                        placeholder="Enter your natural language query here...
+Examples:
+• Show me all customers
+• What are the top 5 cities by customer count?
+• Get average age by city
+• Show customers registered in the last 3 months"
+                    ></textarea>
+                    
+                    <div class="query-buttons">
+                        <button class="btn btn-primary" id="execute-btn">
+                            <i class="fas fa-play"></i>
+                            Execute Query
+                        </button>
+                        <button class="btn btn-secondary" id="clear-btn">
+                            <i class="fas fa-trash"></i>
+                            Clear Results
+                        </button>
+                        <button class="btn data-extract-btn" id="visualize-btn" style="display: none; background: linear-gradient(45deg, #9b59b6, #8e44ad);">
+                            <i class="fas fa-chart-bar"></i>
+                            Open in Visualization Studio
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="loading" id="query-loading">
+                    <div class="spinner"></div>
+                    <span>Executing database query...</span>
+                </div>
+                
+                <div class="results-container" id="query-results">
+                    <div class="message system">
+                        <div class="message-content">
+                            Welcome to the Database Analytics interface! Enter a natural language query above to get started.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="connection-status">
+                <div class="status-dot"></div>
+                <span>Connected to AutoInsight AI Database</span>
+            </div>
+            <div id="query-status">Ready to execute queries</div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+
+    <script>
+        class DatabaseAnalyticsInterface {
+            constructor() {
+                this.isQuerying = false;
+                this.lastQueryResult = null;
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.setupMarkdownRenderer();
+            }
+            
+            initializeElements() {
+                this.queryInput = document.getElementById('query-input');
+                this.executeBtn = document.getElementById('execute-btn');
+                this.clearBtn = document.getElementById('clear-btn');
+                this.visualizeBtn = document.getElementById('visualize-btn');
+                this.queryResults = document.getElementById('query-results');
+                this.queryLoading = document.getElementById('query-loading');
+                this.queryStatus = document.getElementById('query-status');
+                this.toast = document.getElementById('toast');
+            }
+            
+            setupEventListeners() {
+                this.executeBtn.addEventListener('click', () => this.executeQuery());
+                this.clearBtn.addEventListener('click', () => this.clearResults());
+                this.visualizeBtn.addEventListener('click', () => this.openVisualizationStudio());
+                
+                this.queryInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        e.preventDefault();
+                        this.executeQuery();
+                    }
+                });
+            }
+            
+            setupMarkdownRenderer() {
+                marked.setOptions({
+                    highlight: function(code, lang) {
+                        if (lang && hljs.getLanguage(lang)) {
+                            try {
+                                return hljs.highlight(code, { language: lang }).value;
+                            } catch (err) {}
+                        }
+                        return hljs.highlightAuto(code).value;
+                    },
+                    breaks: true,
+                    gfm: true
+                });
+            }
+            
+            async executeQuery() {
+                const query = this.queryInput.value.trim();
+                if (!query || this.isQuerying) return;
+                
+                this.isQuerying = true;
+                this.executeBtn.disabled = true;
+                this.queryLoading.classList.add('show');
+                this.queryStatus.textContent = 'Executing query...';
+                this.visualizeBtn.style.display = 'none';
+                
+                this.addMessage('user', query, 'query');
+                
+                try {
+                    const response = await fetch('/api/v1/database/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            query: query,
+                            reset_context: false
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        await this.handleStreamingResponse(response, 'query');
+                    } else {
+                        throw new Error('Query execution failed');
+                    }
+                } catch (error) {
+                    this.addMessage('error', 'Failed to execute query: ' + error.message, 'query');
+                    this.showToast('Query execution failed: ' + error.message, 'error');
+                } finally {
+                    this.isQuerying = false;
+                    this.executeBtn.disabled = false;
+                    this.queryLoading.classList.remove('show');
+                    this.queryStatus.textContent = 'Ready to execute queries';
+                }
+            }
+            
+            async handleStreamingResponse(response, type) {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                try {
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        
+                        const chunk = decoder.decode(value);
+                        const lines = chunk.split('\n');
+                        
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                try {
+                                    const data = JSON.parse(line.slice(6));
+                                    this.handleStreamingMessage(data, type);
+                                } catch (e) {
+                                    console.error('Failed to parse streaming data:', e);
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Streaming error:', error);
+                }
+            }
+            
+            handleStreamingMessage(data, type) {
+                if (data.type === 'message' && data.data) {
+                    const messageData = data.data;
+                    
+                    // Handle different types of streaming messages
+                    if (messageData.type === 'tool_request') {
+                        this.addToolRequestMessage(messageData, type);
+                    } else if (messageData.type === 'tool_result') {
+                        this.addToolResultMessage(messageData, type);
+                        if (type === 'query') {
+                            // Store tool results for potential data extraction
+                            this.lastQueryResult = messageData;
+                            this.visualizeBtn.style.display = 'inline-flex';
+                        }
+                    } else if (messageData.type === 'system') {
+                        this.addSystemMessage(messageData, type);
+                    } else if (messageData.type === 'text' && messageData.content) {
+                        const source = messageData.source || 'AI';
+                        this.addMessage('agent', messageData.content, type, source);
+                    } else if (messageData.type === 'message' && messageData.source) {
+                        // Handle nested message format
+                        const source = messageData.source;
+                        const content = messageData.content || '';
+                        if (content.trim()) {
+                            this.addMessage('agent', content, type, source);
+                        }
+                    }
+                } else if (data.type === 'error') {
+                    this.addMessage('error', data.error || 'An error occurred', type);
+                } else if (data.type === 'complete') {
+                    this.addMessage('system', 'Task completed successfully', type);
+                }
+            }
+            
+            addToolRequestMessage(messageData, context) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message tool-request';
+                
+                const emoji = messageData.emoji || '🔧';
+                const toolName = messageData.tool_name || 'Unknown Tool';
+                const source = messageData.source || 'Agent';
+                const timestamp = messageData.timestamp || new Date().toISOString();
+                
+                let arguments_display = '';
+                if (messageData.arguments) {
+                    try {
+                        const args = JSON.parse(messageData.arguments);
+                        arguments_display = `<div class="tool-args">Arguments: ${JSON.stringify(args, null, 2)}</div>`;
+                    } catch (e) {
+                        arguments_display = `<div class="tool-args">Arguments: ${messageData.arguments}</div>`;
+                    }
+                }
+                
+                messageDiv.innerHTML = `
+                    <div class="message-meta">
+                        <div class="message-header">
+                            <span class="emoji-indicator">${emoji}</span>
+                            <strong>${source}</strong> is calling tool
+                        </div>
+                        <div class="timestamp">${new Date(timestamp).toLocaleTimeString()}</div>
+                    </div>
+                    <div class="tool-info">
+                        <div class="tool-name">Tool: ${toolName}</div>
+                        ${arguments_display}
+                    </div>
+                `;
+                
+                if (context === 'query') {
+                    this.queryResults.appendChild(messageDiv);
+                    this.queryResults.scrollTop = this.queryResults.scrollHeight;
+                }
+            }
+            
+            addToolResultMessage(messageData, context) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message tool-result';
+                
+                const emoji = messageData.emoji || '✅';
+                const toolName = messageData.tool_name || 'Tool';
+                const content = messageData.content || 'No content';
+                const timestamp = messageData.timestamp || new Date().toISOString();
+                
+                messageDiv.innerHTML = `
+                    <div class="message-meta">
+                        <div class="message-header">
+                            <span class="emoji-indicator">${emoji}</span>
+                            <strong>${toolName}</strong> result
+                        </div>
+                        <div class="timestamp">${new Date(timestamp).toLocaleTimeString()}</div>
+                    </div>
+                    <div class="message-content">
+                        <pre><code>${this.escapeHtml(content)}</code></pre>
+                    </div>
+                `;
+                
+                if (context === 'query') {
+                    this.queryResults.appendChild(messageDiv);
+                    this.queryResults.scrollTop = this.queryResults.scrollHeight;
+                }
+            }
+            
+            addSystemMessage(messageData, context) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message processing';
+                
+                const emoji = messageData.emoji || 'ℹ️';
+                const content = messageData.content || 'Processing...';
+                const timestamp = messageData.timestamp || new Date().toISOString();
+                
+                messageDiv.innerHTML = `
+                    <div class="message-meta">
+                        <div class="message-header">
+                            <span class="emoji-indicator">${emoji}</span>
+                            System
+                        </div>
+                        <div class="timestamp">${new Date(timestamp).toLocaleTimeString()}</div>
+                    </div>
+                    <div class="message-content">${content}</div>
+                `;
+                
+                if (context === 'query') {
+                    this.queryResults.appendChild(messageDiv);
+                    this.queryResults.scrollTop = this.queryResults.scrollHeight;
+                }
+            }
+            
+            openVisualizationStudio() {
+                if (!this.lastQueryResult) {
+                    this.showToast('No query results to visualize', 'error');
+                    return;
+                }
+                
+                try {
+                    const content = this.lastQueryResult.content;
+                    const query = this.queryInput.value.trim();
+                    
+                    // Create URL with data and suggested query
+                    const params = new URLSearchParams({
+                        data: encodeURIComponent(content),
+                        query: encodeURIComponent(`Create a visualization from the database query: "${query}"`)
+                    });
+                    
+                    // Open visualization studio in new tab
+                    window.open(`/visualization?${params.toString()}`, '_blank');
+                    
+                } catch (error) {
+                    console.error('Error opening visualization studio:', error);
+                    this.showToast('Failed to open visualization studio: ' + error.message, 'error');
+                }
+            }
+            
+            addMessage(type, content, context, source = null) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                let messageHTML = '';
+                
+                if (source && type === 'agent') {
+                    messageHTML += `<div class="message-header">${source}</div>`;
+                }
+                
+                const processedContent = this.processMarkdownContent(content);
+                messageHTML += `<div class="message-content">${processedContent}</div>`;
+                
+                messageDiv.innerHTML = messageHTML;
+                
+                if (context === 'query') {
+                    this.queryResults.appendChild(messageDiv);
+                    this.queryResults.scrollTop = this.queryResults.scrollHeight;
+                }
+                
+                // Highlight code blocks after adding to DOM
+                messageDiv.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }
+            
+            processMarkdownContent(content) {
+                try {
+                    return marked.parse(content);
+                } catch (error) {
+                    console.error('Markdown parsing error:', error);
+                    return this.escapeHtml(content).replace(/\n/g, '<br>');
+                }
+            }
+            
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            clearResults() {
+                this.queryResults.innerHTML = `
+                    <div class="message system">
+                        <div class="message-content">
+                            Results cleared. Ready for new queries.
+                        </div>
+                    </div>
+                `;
+                this.visualizeBtn.style.display = 'none';
+                this.lastQueryResult = null;
+            }
+            
+            showToast(message, type = 'success') {
+                this.toast.textContent = message;
+                this.toast.className = `toast ${type} show`;
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // Initialize the interface when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new DatabaseAnalyticsInterface();
+        });
+    </script>
+</body>
+</html>

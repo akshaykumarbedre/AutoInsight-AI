@@ -5,7 +5,7 @@ from autogen_ext.tools.langchain import LangChainToolAdapter
 class DatabaseManager:
     """Manages database connections and toolkit creation"""
     
-    def __init__(self, db_uri: str = "sqlite:///ecommerce.db"):
+    def __init__(self, db_uri: str = "sqlite:///database/ecommerce.db"):
         self.db_uri = db_uri
        
         self.toolkit = None

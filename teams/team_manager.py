@@ -44,10 +44,9 @@ class TeamManager:
     
     def create_data_analysis_team(self, openai_client, DataAnalysisExpert,code_executor_agent,human_agent, ):
         """Create visualization team with termination conditions"""
-        self.data_analysis_team  = SelectorGroupChat(
-            participants=[DataAnalysisExpert, code_executor_agent,human_agent],
+        self.data_analysis_team  = RoundRobinGroupChat(
+            participants=[DataAnalysisExpert, code_executor_agent],
             termination_condition= TextMentionTermination('STOP') or MaxMessageTermination(15),
-            model_client=openai_client,
             )
         return self.data_analysis_team
     
