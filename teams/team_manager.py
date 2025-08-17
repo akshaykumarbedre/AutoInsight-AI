@@ -30,7 +30,7 @@ class TeamManager:
         """Create database team with termination conditions"""
         self.db_team = RoundRobinGroupChat(
             [db_agent],
-            termination_condition=TextMentionTermination("TERMINATE") or MaxMessageTermination(10),
+            termination_condition=TextMentionTermination("TERMINATE") or MaxMessageTermination(10),max_turns=15
         )
         return self.db_team
     
@@ -38,7 +38,7 @@ class TeamManager:
         """Create visualization team with termination conditions"""
         self.visualization_team = RoundRobinGroupChat(
             [visualization_agent],
-            termination_condition=TextMentionTermination("TERMINATE") or MaxMessageTermination(10)
+            termination_condition=TextMentionTermination("TERMINATE") or MaxMessageTermination(10),max_turns=10
         )
         return self.visualization_team
     
@@ -46,7 +46,7 @@ class TeamManager:
         """Create visualization team with termination conditions"""
         self.data_analysis_team  = RoundRobinGroupChat(
             participants=[DataAnalysisExpert, code_executor_agent],
-            termination_condition= TextMentionTermination('STOP') or MaxMessageTermination(15),
+            termination_condition= TextMentionTermination('STOP') or MaxMessageTermination(15),max_turns=20
             )
         return self.data_analysis_team
     
