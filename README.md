@@ -37,11 +37,11 @@
 ### � **Platform Screenshots**
 
 #### 📊 **Data Analysis Agent Interface**
-![Data Analysis Interface](https://github.com/user-attachments/assets/aa893388-8d13-4ae9-94a2-eeb8d26cd634)
+![Data Analysis Interface](notebook/imagean.png)
 *Real-time Python code execution with machine learning capabilities, file upload, and comprehensive data analysis workflows*
 
 #### 🗄️ **Database Analytics Interface**  
-![Database Analytics Interface](https://github.com/user-attachments/assets/5397151e-bc19-4e1e-a7e0-8813fc76805b)
+![Database Analytics Interface](notebook/imagedb.png)
 *Natural language SQL queries with smart suggestions, real-time execution, and integrated visualization studio*
 
 ### �📹 **Video Demos**
