@@ -32,6 +32,46 @@
 
 ---
 
+## 🎬 Platform Demonstrations
+
+### � **Platform Screenshots**
+
+#### 📊 **Data Analysis Agent Interface**
+![Data Analysis Interface](https://github.com/user-attachments/assets/aa893388-8d13-4ae9-94a2-eeb8d26cd634)
+*Real-time Python code execution with machine learning capabilities, file upload, and comprehensive data analysis workflows*
+
+#### 🗄️ **Database Analytics Interface**  
+![Database Analytics Interface](https://github.com/user-attachments/assets/5397151e-bc19-4e1e-a7e0-8813fc76805b)
+*Natural language SQL queries with smart suggestions, real-time execution, and integrated visualization studio*
+
+### �📹 **Video Demos**
+
+Experience AutoInsight AI in action with these comprehensive demonstrations:
+
+#### 🗄️ **Database Analytics Agent Demo**
+[![Database Analytics Demo](https://img.shields.io/badge/▶️_Watch_Demo-Database_Analytics-blue?style=for-the-badge)](https://drive.google.com/file/d/1Ybjt1YOVaMd48aXRc1Lmu25DL9K_uV_J/view?usp=drive_link)
+
+**Features Demonstrated:**
+- Natural language to SQL query conversion
+- Real-time database querying and results display
+- Smart query suggestions and schema exploration
+- Integrated visualization studio workflow
+
+#### 📊 **Data Analysis Agent Demo**
+[![Data Analysis Demo](https://img.shields.io/badge/▶️_Watch_Demo-Data_Analysis-green?style=for-the-badge)](https://drive.google.com/file/d/188XHB_nlON-SguIxxNAkBFFML-PefuYK/view?usp=sharing)
+
+**Features Demonstrated:**
+- Real-time Python code execution in Docker environment
+- File upload and comprehensive data analysis
+- Machine learning model building and evaluation
+- Advanced visualization generation with custom styling
+
+### 🌐 **Live Interactive Demo**
+Try the platform yourself with the live deployment:
+[![Live Platform](https://img.shields.io/badge/🚀_Try_Live_Platform-Interactive_Demo-brightgreen?style=for-the-badge)](https://autoinsight-fastapi-302134120130.asia-south1.run.app)
+
+---
+
 ## ✨ Platform Features
 
 | Feature | Description | Implementation |
