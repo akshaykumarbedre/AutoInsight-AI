@@ -682,6 +682,14 @@ async def root(request: Request):
         "index.html",
         {"request": request, "title": "AutoInsight AI - Data Analysis Platform"}
     )
+# Root endpoint
+@app.get("/dataanalyst")
+async def root(request: Request):
+    """Serve the main frontend interface"""
+    return templates.TemplateResponse(
+        "dataanalyst.html",
+        {"request": request, "title": "AutoInsight AI - Data Analysis Platform"}
+    )
 
 @app.get("/database")
 async def database_analytics(request: Request):
