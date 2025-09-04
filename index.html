@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AutoInsight - Loading</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    #loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #667eea;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .status-text {
+      font-size: 18px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 10px;
+      min-height: 25px;
+    }
+
+    .sub-text {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .time-estimate {
+      font-size: 12px;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 15px;
+      padding: 8px 12px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 6px;
+      border-left: 3px solid #667eea;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .retry-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s ease;
+    }
+
+    .retry-btn:hover {
+      background: #5a6fd8;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body>
+  <div id="loader">
+    <div class="logo">AutoInsight</div>
+    <div class="spinner"></div>
+    <div class="status-text" id="statusText">Initializing application...</div>
+    <div class="sub-text" id="subText">Starting up serverless containers</div>
+    <div class="time-estimate" id="timeEstimate">⏱️ Expected loading time: 15-20 seconds</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="error-message" id="errorMessage"></div>
+    <button class="retry-btn" id="retryBtn" onclick="retryConnection()">Retry Connection</button>
+  </div>
+
+  <script>
+    const APP_URL = "https://autoinsight-app1-302134120130.asia-south1.run.app";
+    let attemptCount = 0;
+    let maxAttempts = 30; // 30 attempts = ~60 seconds
+    let progressInterval;
+
+    const statusText = document.getElementById('statusText');
+    const subText = document.getElementById('subText');
+    const timeEstimate = document.getElementById('timeEstimate');
+    const progressFill = document.getElementById('progressFill');
+    const errorMessage = document.getElementById('errorMessage');
+    const retryBtn = document.getElementById('retryBtn');
+
+    function updateProgress() {
+      const progress = Math.min((attemptCount / maxAttempts) * 100, 95);
+      progressFill.style.width = progress + '%';
+      
+      // Update time estimate based on progress
+      const elapsedTime = attemptCount * 2; // 2 seconds per attempt
+      if (elapsedTime <= 10) {
+        timeEstimate.textContent = `⏱️ Expected loading time: 15-20 seconds (${elapsedTime}s elapsed)`;
+      } else if (elapsedTime <= 20) {
+        timeEstimate.textContent = `⏱️ Almost there! Loading typically completes within 20 seconds (${elapsedTime}s elapsed)`;
+      } else {
+        timeEstimate.textContent = `⏱️ Taking longer than usual... (${elapsedTime}s elapsed)`;
+        timeEstimate.style.color = '#e67e22';
+      }
+    }
+
+    function updateStatus(status, sub = '') {
+      statusText.textContent = status;
+      if (sub) subText.textContent = sub;
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      retryBtn.style.display = 'inline-block';
+      statusText.textContent = 'Connection failed';
+      subText.textContent = 'Unable to connect to the application server';
+    }
+
+    function hideError() {
+      errorMessage.style.display = 'none';
+      retryBtn.style.display = 'none';
+    }
+
+    async function waitForApp() {
+      try {
+        attemptCount++;
+        updateProgress();
+
+        // Update status based on attempt count with better messaging
+        if (attemptCount <= 5) {
+          updateStatus('Waking up serverless containers...', 'This is normal for the first visit - containers are starting up');
+        } else if (attemptCount <= 10) {
+          updateStatus('Loading application services...', 'Initializing dependencies and frameworks');
+        } else if (attemptCount <= 15) {
+          updateStatus('Almost ready...', 'Final startup processes are completing');
+        } else if (attemptCount <= 20) {
+          updateStatus('Just a few more seconds...', 'Application is nearly ready to serve');
+        } else {
+          updateStatus('Taking longer than usual...', 'Server might be experiencing high load or slow network');
+        }
+
+        // Try to reach the health endpoint first
+        let response = await fetch(APP_URL + "/health", {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache'
+        });
+
+        if (response.ok) {
+          // App is ready, show success and redirect
+          updateStatus('Application ready!', 'Redirecting to AutoInsight...');
+          progressFill.style.width = '100%';
+          
+          setTimeout(() => {
+            window.location.href = APP_URL;
+          }, 1000);
+          return;
+        }
+
+        // If health check fails, try the root URL
+        response = await fetch(APP_URL, {
+          method: 'HEAD',
+          mode: 'cors',
+          cache: 'no-cache'
+        });
+
+        if (response.ok) {
+          updateStatus('Application ready!', 'Redirecting to AutoInsight...');
+          progressFill.style.width = '100%';
+          
+          setTimeout(() => {
+            window.location.href = APP_URL;
+          }, 1000);
+          return;
+        }
+
+        // If we've exceeded max attempts, show error
+        if (attemptCount >= maxAttempts) {
+          showError('The application is taking longer than expected to start. Please try again.');
+          return;
+        }
+
+        // Retry after delay
+        setTimeout(waitForApp, 2000);
+
+      } catch (err) {
+        console.log('Connection attempt failed:', err);
+
+        if (attemptCount >= maxAttempts) {
+          showError('Unable to connect to the application. Please check your internet connection and try again.');
+          return;
+        }
+
+        // Retry after delay
+        setTimeout(waitForApp, 2000);
+      }
+    }
+
+    function retryConnection() {
+      attemptCount = 0;
+      hideError();
+      updateStatus('Retrying connection...', 'Attempting to reach the application server');
+      timeEstimate.textContent = '⏱️ Expected loading time: 15-20 seconds';
+      timeEstimate.style.color = '#888';
+      progressFill.style.width = '0%';
+      waitForApp();
+    }
+
+    // Start the loading process when page loads
+    window.onload = function() {
+      updateStatus('Starting AutoInsight...', 'Preparing your serverless application');
+      waitForApp();
+    };
+
+    // Handle page visibility changes (tab switching)
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden && attemptCount >= maxAttempts) {
+        // If user comes back to tab after error, offer retry
+        retryConnection();
+      }
+    });
+  </script>
+</body>
+</html>
