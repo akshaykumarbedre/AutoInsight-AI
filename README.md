@@ -7,7 +7,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green.svg)](https://fastapi.tiangolo.com)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.45+-red.svg)](https://streamlit.io)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-blue.svg)](https://docker.com)
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Available-brightgreen.svg)](https://autoinsight-app-302134120130.asia-south1.run.app)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Available-brightgreen.svg)](https://autoinsight-app1-302134120130.asia-south1.run.app)
 
 ---
 
@@ -44,10 +44,10 @@
 
 [🚀 **Interactive Demo**](https://autoinsight-app-302134120130.asia-south1.run.app)
 
-* 📊 [Data Analysis](https://autoinsight-app-302134120130.asia-south1.run.app/dataanalyst)
-* 🗄️ [Database Analytics](https://autoinsight-app-302134120130.asia-south1.run.app/database)
-* 📈 [Visualization Studio](https://autoinsight-app-302134120130.asia-south1.run.app/visualization)
-* 📖 [API Docs](https://autoinsight-app-302134120130.asia-south1.run.app/docs)
+* 📊 [Data Analysis](https://autoinsight-app1-302134120130.asia-south1.run.app/dataanalyst)
+* 🗄️ [Database Analytics](https://autoinsight-app1-302134120130.asia-south1.run.app/database)
+* 📈 [Visualization Studio](https://autoinsight-app1-302134120130.asia-south1.run.app/visualization)
+* 📖 [API Docs](https://autoinsight-app1-302134120130.asia-south1.run.app/docs)
 
 ### 📸 Screenshots
 
